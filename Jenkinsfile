@@ -6,7 +6,6 @@ pipeline {
         GIT_SCM = 'https://github.com/srikanth1260-tech/python-flask-app.git'
     }
     stages {
-        stages {
         stage ("Clean WS") {
             steps {
                 deleteDir()
