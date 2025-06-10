@@ -40,7 +40,7 @@ pipeline {
                     ssh -i $MY_SSH_KEY -o StrictHostKeyChecking=no ${username}@${SERVER_IP} << EOF
                         unzip -o /home/ec2-user/python.zip -d /home/ec2-user/app/
                         source python/venv/bin/activate
-                        cd /home/ec2-user/python/
+                        cd /home/ec2-user/app/
                         pip install -r requirements.txt
                         sudo systemctl restart flaskapp.service
 EOF
