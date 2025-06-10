@@ -3,11 +3,12 @@ pipeline {
 
     environment {
         SERVER_IP = credentials('prod-server-ip')
+        GIT_SCM = 'https://github.com/srikanth1260-tech/python-flask-app.git'
     }
     stages {
         stage("checkout") {
             steps {
-                git clone "$GIT_SCM"
+                git url: "$GIT_SCM", branch: 'main'
             }
         }
         stage('Setup') {
