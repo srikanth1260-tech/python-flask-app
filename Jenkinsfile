@@ -31,7 +31,7 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'MY_SSH_KEY', usernameVariable: 'username')]) {
                     sh '''
-                    scp -i $MY_SSH_KEY -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pythonflask/python.zip  ec2-user@${SERVER_IP}:/home/ec2-user/
+                    scp -i $MY_SSH_KEY -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pythonflask/python.zip  ${username}@${SERVER_IP}:/home/ec2-user/
                     ssh -i $MY_SSH_KEY -o StrictHostKeyChecking=no ${username}@${SERVER_IP} << EOF
                         unzip -o /home/ec2-user/python.zip -d /home/ec2-user/app/
                         source python/venv/bin/activate
