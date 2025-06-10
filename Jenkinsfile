@@ -39,10 +39,15 @@ pipeline {
                     scp -i $MY_SSH_KEY -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pythonflask/python.zip  ${username}@${SERVER_IP}:/home/ec2-user/
                     ssh -i $MY_SSH_KEY -o StrictHostKeyChecking=no ${username}@${SERVER_IP} << EOF
                         unzip -o /home/ec2-user/python.zip -d /home/ec2-user/app/
-                        source python/venv/bin/activate
-                        cd /home/ec2-user/app/
-                        pip install -r requirements.txt
-                        sudo systemctl restart flaskapp.service
+                        python3 -m venv /home/ec2-user/app/venv --clear
+                                source /home/ec2-user/app/venv/bin/activate
+                                
+                                # Install dependencies
+                                pip install --upgrade pip
+                                pip install -r /home/ec2-user/app/requirements.txt --no-cache-dir
+                                
+                                # Restart service
+                                sudo systemctl restart flaskapp.service
 EOF
                     '''
                 }
